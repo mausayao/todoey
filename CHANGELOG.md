@@ -10,3 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Removed
 ### Fixed
+
+## [0.1.0] - 2019-05-27
+
+### Added
+- Adicionado tabble view
+- Adicionado metodos para exibir os dados 
+- Adicionado metodo para adicionar ou remover check ao selecionar uma celula
