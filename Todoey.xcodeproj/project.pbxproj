@@ -54,14 +54,38 @@
 		E9FA971F229CA469006D5CD4 /* Todoey */ = {
 			isa = PBXGroup;
 			children = (
+				E9FA9734229CBFF2006D5CD4 /* controller */,
+				E9FA9733229CBFE9006D5CD4 /* view */,
+				E9FA9732229CBFDD006D5CD4 /* model */,
 				E9FA9720229CA469006D5CD4 /* AppDelegate.swift */,
-				E9FA9722229CA469006D5CD4 /* TodoListViewController.swift */,
-				E9FA9724229CA469006D5CD4 /* Main.storyboard */,
 				E9FA9727229CA46A006D5CD4 /* Assets.xcassets */,
-				E9FA9729229CA46A006D5CD4 /* LaunchScreen.storyboard */,
 				E9FA972C229CA46A006D5CD4 /* Info.plist */,
 			);
 			path = Todoey;
+			sourceTree = "<group>";
+		};
+		E9FA9732229CBFDD006D5CD4 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		E9FA9733229CBFE9006D5CD4 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				E9FA9724229CA469006D5CD4 /* Main.storyboard */,
+				E9FA9729229CA46A006D5CD4 /* LaunchScreen.storyboard */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		E9FA9734229CBFF2006D5CD4 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				E9FA9722229CA469006D5CD4 /* TodoListViewController.swift */,
+			);
+			path = controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

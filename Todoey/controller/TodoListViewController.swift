@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    let itemArray = ["teste01", "teste02", "teste03"]
+    var itemArray = ["teste01", "teste02", "teste03"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,39 @@ class TodoListViewController: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    @IBAction func addItem(_ sender: UIBarButtonItem) {
+        var alertTextField = UITextField()
+        let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
         
+        alert.addTextField { (textField) in
+            textField.placeholder = "Item description"
+            alertTextField = textField
+        }
+        
+        let okAction = UIAlertAction(title: "Add", style: .default) { (action) in
+            if let text = alertTextField.text {
+                if text != "" {
+                    self.itemArray.append(text)
+                    self.tableView.reloadData()
+                } else {
+                    self.alertControl(message: "Field can't be empty")
+                }
+            }
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+    
+    private func alertControl(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 

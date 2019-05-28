@@ -17,3 +17,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adicionado tabble view
 - Adicionado metodos para exibir os dados 
 - Adicionado metodo para adicionar ou remover check ao selecionar uma celula
+- Adicionado metodo para adicionar nova atividade
+- Projeto organizado para o padrão MVC
