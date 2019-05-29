@@ -11,9 +11,13 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray = ["teste01", "teste02", "teste03"]
+    let userDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let itens = userDefaults.array(forKey: "TodoList") as? [String] {
+            itemArray = itens
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -22,6 +26,7 @@ class TodoListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
         
         cell.textLabel?.text = itemArray[indexPath.row]
+        userDefaults.set(itemArray, forKey: "TodoList")
         return cell
     }
     
