@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [0.2.1] - 2019-05-29
+### Added
+- Model Activity
+- FileManager
+- Arquivo com atividades salvas
+### Removed
+-  UserDefault
+
 ## [0.2.0] - 2019-05-28
 ### Added
 - Adicionado persistencia utilizando o UserDefaults da lista de atividades
