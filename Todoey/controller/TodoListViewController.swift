@@ -10,23 +10,22 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    var itemArray = ["teste01", "teste02", "teste03"]
-    let userDefaults = UserDefaults.standard
+    var itemArray: [Activity] = [Activity]()
+    let fileManager = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let itens = userDefaults.array(forKey: "TodoList") as? [String] {
-            itemArray = itens
-        }
-        // Do any additional setup after loading the view.
+        loadData()
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
         
-        cell.textLabel?.text = itemArray[indexPath.row]
-        userDefaults.set(itemArray, forKey: "TodoList")
+        let activity = itemArray[indexPath.row]
+        cell.textLabel?.text = activity.title
+        cell.accessoryType = activity.isChecked ? .checkmark : .none
+       
         return cell
     }
     
@@ -35,14 +34,11 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        if cell?.accessoryType ==  UITableViewCell.AccessoryType.checkmark{
-            cell?.accessoryType = .none
-        } else {
-            cell?.accessoryType = .checkmark
-        }
+        let activity = itemArray[indexPath.row]
+        activity.isChecked = !activity.isChecked
         
         tableView.deselectRow(at: indexPath, animated: true)
+        save()
     }
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
@@ -57,8 +53,8 @@ class TodoListViewController: UITableViewController {
         let okAction = UIAlertAction(title: "Add", style: .default) { (action) in
             if let text = alertTextField.text {
                 if text != "" {
-                    self.itemArray.append(text)
-                    self.tableView.reloadData()
+                    self.itemArray.append(Activity(text, false))
+                    self.save()
                 } else {
                     self.alertControl(message: "Field can't be empty")
                 }
@@ -76,6 +72,28 @@ class TodoListViewController: UITableViewController {
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func save() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: fileManager!)
+        } catch {
+            print("error \(error.localizedDescription)")
+        }
+        self.tableView.reloadData()
+    }
+    
+    func loadData() {
+        if let data = try? Data(contentsOf: fileManager!){
+            let decoder = PropertyListDecoder()
+            do {
+               itemArray = try decoder.decode([Activity].self, from: data)
+            } catch {
+                print("error: \(error)")
+            }
+        }
     }
 }
 
