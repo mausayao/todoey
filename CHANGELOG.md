@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [0.3.0] - 2019-06-01
+### Added
+- Salvar Activity 
+- Listar Activity
+- Adicionado CoreData
+### Removed
+-  FileManager
+-  Model Activity
+
 ## [0.2.1] - 2019-05-29
 ### Added
 - Model Activity
