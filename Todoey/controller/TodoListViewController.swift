@@ -11,7 +11,7 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray: [Activity] = [Activity]()
-    let fileManager = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,10 @@ class TodoListViewController: UITableViewController {
         let okAction = UIAlertAction(title: "Add", style: .default) { (action) in
             if let text = alertTextField.text {
                 if text != "" {
-                    self.itemArray.append(Activity(text, false))
+                    let activity = Activity(context: self.context)
+                    activity.isChecked = false
+                    activity.title = text
+                    self.itemArray.append(activity)
                     self.save()
                 } else {
                     self.alertControl(message: "Field can't be empty")
@@ -75,10 +78,8 @@ class TodoListViewController: UITableViewController {
     }
     
     func save() {
-        let encoder = PropertyListEncoder()
         do {
-            let data = try encoder.encode(itemArray)
-            try data.write(to: fileManager!)
+            try context.save()
         } catch {
             print("error \(error.localizedDescription)")
         }
@@ -86,14 +87,7 @@ class TodoListViewController: UITableViewController {
     }
     
     func loadData() {
-        if let data = try? Data(contentsOf: fileManager!){
-            let decoder = PropertyListDecoder()
-            do {
-               itemArray = try decoder.decode([Activity].self, from: data)
-            } catch {
-                print("error: \(error)")
-            }
-        }
+       
     }
 }
 
