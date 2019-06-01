@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
@@ -17,7 +18,6 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
         loadData()
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
@@ -87,7 +87,13 @@ class TodoListViewController: UITableViewController {
     }
     
     func loadData() {
-       
+        let request: NSFetchRequest<Activity> = Activity.fetchRequest()
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error on fetch request \(error)")
+        }
+        
     }
 }
 
