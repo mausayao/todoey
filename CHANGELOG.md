@@ -11,9 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [0.3.2] - 2019-06-02
+### Added
+- Adicionado nova view de categoria
+- Adicionado salvar categoria
+- Adicionado listar categoria
+- adicionado segue para atividades
+- adicionado relacionamento de atividades com categorias
+- ajustes para salvar atividade com categorias
+
+
 ## [0.3.1] - 2019-06-01
 ### Added
 - Adicionado pesquisar
+
 
 ## [0.3.0] - 2019-06-01
 ### Added
