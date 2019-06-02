@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [0.3.1] - 2019-06-01
+### Added
+- Adicionado pesquisar
+
 ## [0.3.0] - 2019-06-01
 ### Added
 - Salvar Activity 
