@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [0.4.0] - 2019-06-03
+### Added
+- Adicionado Realm
+- Realizado refatoração para usar o realm para persitencia de dados
+
+### Removed
+- CoreData
+
 ## [0.3.2] - 2019-06-02
 ### Added
 - Adicionado nova view de categoria
