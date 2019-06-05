@@ -11,11 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [0.4.1] - 2019-06-04
+### Added
+- Adicinado novo campo data de criaçao na classe Activity
+- Filtro é ordenado por data de criação
+### Fixed
+- Warnings relacionado ao pod Realm
+
 ## [0.4.0] - 2019-06-03
 ### Added
 - Adicionado Realm
 - Realizado refatoração para usar o realm para persitencia de dados
-
 ### Removed
 - CoreData
 

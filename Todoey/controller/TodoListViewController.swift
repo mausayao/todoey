@@ -97,11 +97,9 @@ class TodoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func loadData(with predicate: NSPredicate? = nil) {
+    func loadData() {
         items = selectedCategory?.activities.sorted(byKeyPath: "title", ascending: true)
-        if predicate != nil {
-            items = items?.filter(predicate!)
-        }
+       
         tableView.reloadData()
     }
 }
@@ -109,8 +107,8 @@ class TodoListViewController: UITableViewController {
 extension TodoListViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        loadData(with: predicate)
+        items = items?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+        tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

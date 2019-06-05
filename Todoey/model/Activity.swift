@@ -12,5 +12,6 @@ import RealmSwift
 class Activity: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var isChecked: Bool = false
+    @objc dynamic var dateCreated: Date = Date()
     var category = LinkingObjects(fromType: Category.self, property: "activities")
 }
