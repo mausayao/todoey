@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
     
     var categories:  Results<Category>?
     let realm = try! Realm()
@@ -17,6 +17,7 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
+        tableView.rowHeight = 80.0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -24,7 +25,7 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No category added!"
         return cell
     }
@@ -90,6 +91,18 @@ class CategoryViewController: UITableViewController {
     
     private func loadData() {
         categories = realm.objects(Category.self)
+    }
+    
+    override func updateView(at index: Int) {
+        if let rowToDelete = self.categories?[index] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(rowToDelete)
+                }
+            } catch {
+                print("Error on delete \(error)")
+            }
+        }
     }
     
 }

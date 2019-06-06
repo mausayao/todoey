@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [0.4.2] - 2019-06-05
+### Added
+- Adicionado pod SwipeCellKit
+- Adicionado super classe que encapsula os metodos swipecell
+- CategoryViewController e ActivityViewController passam a herdar os metodos da classe SwipeTableViewController
+
 ## [0.4.1] - 2019-06-04
 ### Added
 - Adicinado novo campo data de criaçao na classe Activity
