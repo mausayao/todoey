@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Adicionado pod SwipeCellKit
 - Adicionado super classe que encapsula os metodos swipecell
-- CategoryViewController e ActivityViewController passam a herdar os metodos da classe SwipeTableViewController
+- CategoryViewController e TodoListViewController passam a herdar os metodos da classe SwipeTableViewController
 
 ## [0.4.1] - 2019-06-04
 ### Added

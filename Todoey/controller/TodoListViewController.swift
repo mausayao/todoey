@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
     
     let realm = try! Realm()
     var items: Results<Activity>?
@@ -21,10 +21,11 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = 80.0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let activity = items?[indexPath.row] {
             cell.textLabel?.text = activity.title
@@ -51,7 +52,7 @@ class TodoListViewController: UITableViewController {
             } catch {
                 alertControl(message: "Error on update activity!")
             }
-           
+            
         }
     }
     
@@ -99,8 +100,20 @@ class TodoListViewController: UITableViewController {
     
     func loadData() {
         items = selectedCategory?.activities.sorted(byKeyPath: "title", ascending: true)
-       
+        
         tableView.reloadData()
+    }
+    
+    override func updateView(at index: Int) {
+        if let item = items?[index] {
+            do {
+                try realm.write {
+                    realm.delete(item)
+                }
+            } catch {
+                print("Error on delete \(error)")
+            }
+        }
     }
 }
 
