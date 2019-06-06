@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
     
     var categories:  Results<Category>?
     let realm = try! Realm()
@@ -17,6 +18,7 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
+        tableView.separatorStyle = .none
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -24,8 +26,13 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "No category added!"
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        if let categorie = categories?[indexPath.row] {
+            cell.textLabel?.text = categorie.name
+            cell.backgroundColor = UIColor(hexString: categorie.color)
+        } else {
+            cell.textLabel?.text = "No category added!"
+        }
         return cell
     }
     
@@ -55,6 +62,7 @@ class CategoryViewController: UITableViewController {
                 if text != "" {
                     let category = Category()
                     category.name = text
+                    category.color = RandomFlatColor().hexValue()
                     self.save(category)
                 } else {
                     self.alertControl(message: "Field can't be empty")
@@ -90,6 +98,18 @@ class CategoryViewController: UITableViewController {
     
     private func loadData() {
         categories = realm.objects(Category.self)
+    }
+    
+    override func updateView(at index: Int) {
+        if let rowToDelete = self.categories?[index] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(rowToDelete)
+                }
+            } catch {
+                print("Error on delete \(error)")
+            }
+        }
     }
     
 }
