@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CategoryViewController: SwipeTableViewController {
     
@@ -17,7 +18,7 @@ class CategoryViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
-        tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -26,7 +27,12 @@ class CategoryViewController: SwipeTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "No category added!"
+        if let categorie = categories?[indexPath.row] {
+            cell.textLabel?.text = categorie.name
+            cell.backgroundColor = UIColor(hexString: categorie.color)
+        } else {
+            cell.textLabel?.text = "No category added!"
+        }
         return cell
     }
     
@@ -56,6 +62,7 @@ class CategoryViewController: SwipeTableViewController {
                 if text != "" {
                     let category = Category()
                     category.name = text
+                    category.color = RandomFlatColor().hexValue()
                     self.save(category)
                 } else {
                     self.alertControl(message: "Field can't be empty")

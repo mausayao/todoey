@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adicionado pod SwipeCellKit
 - Adicionado super classe que encapsula os metodos swipecell
 - CategoryViewController e TodoListViewController passam a herdar os metodos da classe SwipeTableViewController
+- Adicionado pod ChameleonFramework
+- Adicionado nova propriedade color na classe Category
+- Exibir cor da categoria na TableView
 
 ## [0.4.1] - 2019-06-04
 ### Added
