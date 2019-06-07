@@ -8,9 +8,11 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     let realm = try! Realm()
     var items: Results<Activity>?
     var selectedCategory: Category? {
@@ -21,6 +23,36 @@ class TodoListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorStyle = .none
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let color = selectedCategory?.color {
+            title = selectedCategory?.name
+            updateNavBar(with: color)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        updateNavBar(with: "7A81F6")
+    }
+    
+    private func updateNavBar(with hexColor: String){
+        
+        guard let navBar = navigationController?.navigationBar else {
+            fatalError("Navigation controller does not exists!")
+        }
+        guard let navBarColor = UIColor(hexString: hexColor) else  {
+            fatalError("Color does not exists!")
+        }
+        
+        navBar.barTintColor = navBarColor
+        navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+        
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+        
+        searchBar.barTintColor = navBarColor
+    
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -29,6 +61,7 @@ class TodoListViewController: SwipeTableViewController {
         if let activity = items?[indexPath.row] {
             cell.textLabel?.text = activity.title
             cell.accessoryType = activity.isChecked ? .checkmark : .none
+            setColor(in: cell, index: indexPath.row)
         } else {
             cell.textLabel?.text = "No activity added!"
         }
@@ -52,6 +85,17 @@ class TodoListViewController: SwipeTableViewController {
                 alertControl(message: "Error on update activity!")
             }
             
+        }
+    }
+    
+    private func setColor(in cell: UITableViewCell, index: Int) {
+        if let category = selectedCategory {
+            if let count = items?.count{
+                if let color = UIColor(hexString: category.color)?.darken(byPercentage: CGFloat(index) / CGFloat(count)) {
+                    cell.backgroundColor = color
+                    cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+                }
+            }
         }
     }
     
