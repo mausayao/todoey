@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [0.5.0] - 2019-06-06
+### Added
+- Adicionado UI 
+- TableView com gradiente de cor das atividades
+- Categorias com cores aleatorias
+
 ## [0.4.2] - 2019-06-05
 ### Added
 - Adicionado pod SwipeCellKit
